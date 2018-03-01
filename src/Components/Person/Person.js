@@ -5,10 +5,9 @@ import './Person.css';
 const Person=(props)=>{
 
     return(
-        <div className="Person">
-           <p>I am {props.name} and i am {props.age}</p>
-           <p>{props.children}</p>
-           <p>test word</p>
+        <div  className="Person">
+            <p onClick={props.clickchanger}>I am {props.name} and i am {props.age}</p>
+            <input type="text" onChange={props.changer} className="Mychanger" value={props.name}/>
         </div>
     )
 }

@@ -41,10 +41,6 @@ class App extends Component{
             padding :"8px",
             cursor:"pointer",
             transition:"all 0.5s ease",
-            ":hover":{
-                transition:"all 0.5s ease",
-                background:"lightgreen"
-            }
         };
 
         if(this.state.isPersonsShow){
@@ -57,10 +53,6 @@ class App extends Component{
                         />
             });
             buttonStyle.background="red";
-            buttonStyle[":hover"]={
-                transition:"all 0.5s ease",
-                background:"lightgrey"
-            }
         }
         if(this.state.persons.length<=2){
             buttonClass.push('red')
@@ -71,18 +63,16 @@ class App extends Component{
 
 
         return(
-            <StyleRoot>
-                <div className="App">
-                    <h1>Hi, I am React app</h1>
-                    <p className={buttonClass.join(' ')}>This is really working</p>
-                    <button style={buttonStyle} className={buttonClass.join(" ")} onClick={this.togglePersonsHandler}>
-                        Toggle Persons
-                    </button>
-                    {persons}
-                </div>
-            </StyleRoot>
+            <div className="App">
+                <h1>Hi, I am React app</h1>
+                <p className={buttonClass.join(' ')}>This is really working</p>
+                <button style={buttonStyle} className={buttonClass.join(" ")} onClick={this.togglePersonsHandler}>
+                    Toggle Persons
+                </button>
+                {persons}
+            </div>
         )
     }
 }
 
-export default Radium(App);
+export default App;

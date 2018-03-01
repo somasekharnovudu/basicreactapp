@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import "./App.css";
 import Person from './Components/Person/Person';
-import Radium from 'radium';
+import Radium, { StyleRoot} from 'radium';
 
 class App extends Component{
     state={
@@ -30,7 +30,7 @@ class App extends Component{
 
     }
 
-    render=()=>{
+    render(){
         let persons=null;
         let buttonClass=[];
         const buttonStyle={
@@ -39,7 +39,12 @@ class App extends Component{
             font:"inherit",
             border:"1px solid blue",
             padding :"8px",
-            cursor:"pointer"
+            cursor:"pointer",
+            transition:"all 0.5s ease",
+            ":hover":{
+                transition:"all 0.5s ease",
+                background:"lightgreen"
+            }
         };
 
         if(this.state.isPersonsShow){
@@ -52,6 +57,10 @@ class App extends Component{
                         />
             });
             buttonStyle.background="red";
+            buttonStyle[":hover"]={
+                transition:"all 0.5s ease",
+                background:"lightgrey"
+            }
         }
         if(this.state.persons.length<=2){
             buttonClass.push('red')
@@ -62,16 +71,18 @@ class App extends Component{
 
 
         return(
-            <div className="App">
-                <h1>Hi, I am React app</h1>
-                <p className={buttonClass.join(' ')}>This is really working</p>
-                <button style={buttonStyle} className={buttonClass.join(" ")} onClick={this.togglePersonsHandler}>
-                    Toggle Persons
-                </button>
-                {persons}
-            </div>
+            <StyleRoot>
+                <div className="App">
+                    <h1>Hi, I am React app</h1>
+                    <p className={buttonClass.join(' ')}>This is really working</p>
+                    <button style={buttonStyle} className={buttonClass.join(" ")} onClick={this.togglePersonsHandler}>
+                        Toggle Persons
+                    </button>
+                    {persons}
+                </div>
+            </StyleRoot>
         )
     }
 }
 
-export default App;
+export default Radium(App);

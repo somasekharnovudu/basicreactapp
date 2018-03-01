@@ -10,43 +10,47 @@ class App extends Component{
             {name:"Manu",age:"28"},
             {name:"Stephine",age:"20"}
         ],
+        isPersonsShow:false,
         otherValue:"some other value"
     };
-    switchNameHandler=(name)=>{
-        this.setState({persons:[
-                                {name:name,age:"25"},
-                                {name:"Manu",age:"28"},
-                                {name:"Stephine",age:"23"}
-                               ]
-                        });  
-        console.log(this.state);
+    togglePersonsHandler=()=>{
+        var shower=this.state.isPersonsShow;
+        this.setState({isPersonsShow:!shower});
     }
-    namechangeHandler=(event)=>{
-        var persons=[...this.state.persons];
-        persons[1].name=event.target.value;
-        this.setState({persons:persons});
+    valchanger=(event,index)=>{
+        let persons=this.state.persons;
+        persons[index].name=event.target.value;
+        this.setState({
+                            persons:persons
+                        });
     }
+
     render=()=>{
-        let buttonStyle={
+        let persons=null;
+        if(this.state.isPersonsShow){
+            persons=this.state.persons.map((person,index)=>{
+                return <Person key={index} 
+                                changer={(event,key)=>{this.valchanger(event,index)}}  
+                                name={person.name} 
+                                age={person.age}
+                        />
+            });
+        }
+
+        const buttonStyle={
             background:"white",
             font:"inherit",
             border:"1px solid blue",
             padding :"8px",
-            cursor:"pointer",
-            transition:"all 2s ease",
-            ".hover":{
-                transition:"all 2s ease",
-                background:"whitegrey"
-            }
+            cursor:"pointer"
         };
+
         return(
             <div className="App">
                 <h1>Hi, I am React app</h1>
                 <p>This is really working</p>
-                <button style={buttonStyle} onClick={this.switchNameHandler.bind(this,"Soma")}>Swicth Name</button>
-                <Person clickchanger={()=>{this.switchNameHandler("Sekhar")}} name={this.state.persons[0].name} age={this.state.persons[0].age}/>
-                <Person changer={this.namechangeHandler} name={this.state.persons[1].name}  age={this.state.persons[1].age}/>
-                <Person name={this.state.persons[2].name}  age={this.state.persons[2].age}/>
+                <button style={buttonStyle} onClick={this.togglePersonsHandler}>Swicth Name</button>
+                {persons}
             </div>
         )
     }
